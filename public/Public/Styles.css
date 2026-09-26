@@ -8,13 +8,15 @@
 
 body {
   margin: 0;
+  -webkit-text-size-adjust: 100%;
 }
 
 .ambient {
   position: absolute;
   border-radius: 999px;
   filter: blur(2px);
-  pointer-events: none;
+  pointer-events: none !important;
+  z-index: -1 !important;
 }
 
 .ambient-one {
@@ -38,6 +40,8 @@ body {
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: linear-gradient(to bottom, black, transparent 72%);
+  pointer-events: none !important;
+  z-index: -1 !important;
 }
 
 .brand-mark {
@@ -98,6 +102,15 @@ body {
   font-size: 0.875rem;
   outline: none;
   transition: border-color 150ms, box-shadow 150ms, background 150ms;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto !important;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
+  touch-action: manipulation;
+  caret-color: white;
+  font-family: inherit;
 }
 
 .field::placeholder { color: #64708a; }
@@ -129,6 +142,12 @@ body {
   font-size: 0.875rem;
   font-weight: 600;
   transition: transform 150ms, box-shadow 150ms, background 150ms;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto !important;
+  cursor: pointer;
+  touch-action: manipulation;
+  font-family: inherit;
 }
 
 .button-primary {
@@ -138,6 +157,7 @@ body {
   padding: 0.82rem 1rem;
   color: white;
   box-shadow: 0 12px 25px rgba(124, 92, 255, 0.2);
+  border: none;
 }
 
 .button-primary:hover { background: #6c4df2; box-shadow: 0 15px 30px rgba(124, 92, 255, 0.3); transform: translateY(-1px); }
@@ -148,18 +168,29 @@ body {
   padding: 0.75rem 1rem;
   color: white;
   box-shadow: 0 8px 18px rgba(112, 87, 233, 0.2);
+  border: none;
 }
 
 .button-dashboard:hover { background: #6047db; transform: translateY(-1px); }
 
 .auth-tab {
-  flex: 1;
+  flex: 1 1 0% !important;
+  min-width: 0;
   border-radius: 9px;
   padding: 0.6rem 0.75rem;
   color: #8290aa;
   font-size: 0.75rem;
   font-weight: 600;
   transition: background 150ms, color 150ms;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto !important;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  touch-action: manipulation;
+  font-family: inherit;
+  white-space: nowrap;
 }
 
 .auth-tab.active {
@@ -274,6 +305,13 @@ body {
   font-size: 0.75rem;
   font-weight: 600;
   transition: background 150ms, color 150ms, transform 150ms;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto !important;
+  cursor: pointer;
+  border: none;
+  touch-action: manipulation;
+  font-family: inherit;
 }
 
 .run-button:hover { background: #7057e9; color: white; transform: translateY(-1px); }
@@ -283,6 +321,37 @@ body {
   to { transform: rotate(360deg); }
 }
 
-@media (max-width: 640px) {
-  .step-row { padding-left: 0.25rem; padding-right: 0.25rem; }
+/* ============ MOBILE FIXES ============ */
+@media (max-width: 768px) {
+  /* Hide decorative backgrounds on mobile - they cause tap blocking */
+  .ambient-one,
+  .ambient-two,
+  .grid-texture {
+    display: none !important;
+  }
+
+  /* Ensure all interactive elements are always tappable */
+  main,
+  section,
+  form,
+  input,
+  button,
+  .field,
+  .auth-tab,
+  .button-primary {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto !important;
+  }
+
+  /* Fix tabs on mobile */
+  .auth-tab {
+    padding: 0.55rem 0.4rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .step-row {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
 }
